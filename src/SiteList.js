@@ -11,57 +11,51 @@ function SiteList(props){
    const storedVisits = JSON.parse(localStorage.getItem('visits'));
     const [visits, setVisits] = 
         useState(storedVisits ? storedVisits : {})
-   console.log("hi", visits)
+
+   const handleCheckboxChange = (siteID) => {
+      const updatedVisits = { ...visits };
+      if (updatedVisits[siteID]) {
+         delete updatedVisits[siteID];
+      } else {
+         updatedVisits[siteID] = 1;
+      }
+      setVisits(updatedVisits);
+   };
 
    useEffect(() => {
       localStorage.setItem('visits', JSON.stringify(visits))
       console.log(visits)
    }, [visits])
 
-   // useEffect(() => {
-	// 	const visits = JSON.parse(localStorage.getItem('visits'));
-	// 	if (visits) {
-	// 		setVisits(visits);
-	// 	}
-   //    else 
-   //       setVisits({})
-	// }, []);
-
     return (
         <>
          
-         <h1>Historical Sites in Boyle County</h1>
-         <button onClick={() => {
-            const copy = {... visits};
-            copy["hi"] = true;
-            setVisits(copy)
-         }}>
-            click me</button>
+         
 
          
-         <h1>{visits["hi"]}</h1>
-         
+         <h1>Historical Sites in Boyle County</h1>
+
+         <Link to="/siteVisits"> <button className="visitsButton"> View Visited and Unvisited Sites </button> </Link>
 
          <div className="sites_list">
                {props.sites.map((site) => (
                   <div className="imgWrapper">
                      <Link to={`/site/${site.SiteID}`}>
-                        <button>{site.Site}</button>
+                        <button className="siteChoice">{site.Site}</button>
                      </Link>
+                     <div className="checkWrapper">
+                        <label>Visited?</label>
+                        <input
+                           type="checkbox"
+                           checked={visits[site.SiteID] ? true : false}
+                           onChange={() => handleCheckboxChange(site.SiteID)}
+                        />
+                     </div>
                      <img src={`/Project3Files/${site.Image}`} alt = {site.Site}/>
                   </div>
                )
                )}    
-         </div>
-         {/* <div className = "visited">
-               {props.sites.map((site) => (
-                  {visits[site.Site]} ?
-                     (<p>{`${site.Site} has been visited.`}</p>)
-                  :
-                     (<p>{`${site.Site} has not been visited.`}</p>)
-                  )
-                  )}
-         </div>  */}
+         </div> 
       </>
     )
 }

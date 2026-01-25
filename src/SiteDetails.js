@@ -18,8 +18,9 @@ function SiteDetails(props){
         <>
         {site ? 
          <>
-         <p><Link to="/"> All Sites </Link></p>
-
+         
+         <Link to="/"> <button className="allSites"> Return to All Sites </button> </Link>
+            
         <h1>{site.Site}</h1>
         <h2>Latitude: {site.Latitude} Longitude: {site.Longitude}</h2>
         <div className = "photo_desc">

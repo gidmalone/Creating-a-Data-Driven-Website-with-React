@@ -4,6 +4,7 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import SiteList from "./SiteList.js";
 import SiteDetails from "./SiteDetails.js";
+import SiteVisits from "./SiteVisits.js";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element = {<SiteList sites = {sites}/>} />
         <Route path="/site/:SiteID" element = {<SiteDetails sites = {sites}/>} />
+        <Route path="/siteVisits" element = {<SiteVisits sites = {sites}/>} />
       </Routes>
      </BrowserRouter>
 
